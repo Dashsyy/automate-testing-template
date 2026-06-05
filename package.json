@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "portal": "node portal/server.js",
+    "mock": "node mock/telegram-mock.js",
     "test": "playwright test",
     "test:e2e": "playwright test tests/e2e/",
     "test:api": "playwright test tests/api/",
+    "test:bot": "playwright test tests/bot/",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "report": "playwright show-report reports/html"
