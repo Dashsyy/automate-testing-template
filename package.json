@@ -4,6 +4,7 @@
   "description": "QA automation template for E2E and API testing with Playwright and Asana integration",
   "type": "module",
   "scripts": {
+    "portal": "node portal/server.js",
     "test": "playwright test",
     "test:e2e": "playwright test tests/e2e/",
     "test:api": "playwright test tests/api/",
@@ -12,7 +13,9 @@
     "report": "playwright show-report reports/html"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0"

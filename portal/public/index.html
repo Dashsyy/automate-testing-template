@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QA Test Case Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">QA Portal</span>
+        <button class="btn-icon" id="btn-new-sheet" title="New test sheet">+</button>
+      </div>
+      <div class="sidebar-label">Test Sheets</div>
+      <ul class="sheet-list" id="sheet-list"></ul>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- Empty state -->
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon">📋</div>
+        <h2>No sheet selected</h2>
+        <p>Select a sheet from the sidebar or create a new one to get started.</p>
+        <button class="btn btn-primary" id="btn-new-sheet-empty">+ New Test Sheet</button>
+      </div>
+
+      <!-- Sheet view -->
+      <div class="sheet-view hidden" id="sheet-view">
+
+        <div class="sheet-header">
+          <div class="sheet-meta">
+            <h1 class="sheet-title" id="sheet-title">Feature Name</h1>
+            <span class="sheet-project" id="sheet-project">Project</span>
+          </div>
+          <div class="sheet-actions">
+            <button class="btn btn-ghost" id="btn-add-row">+ Add Test Case</button>
+            <div class="export-group">
+              <button class="btn btn-export" id="btn-export-excel">↓ Excel</button>
+              <button class="btn btn-export" id="btn-export-csv">↓ CSV</button>
+            </div>
+            <button class="btn btn-danger-ghost" id="btn-delete-sheet">Delete Sheet</button>
+          </div>
+        </div>
+
+        <!-- Summary bar -->
+        <div class="summary-bar" id="summary-bar">
+          <span class="summary-item"><span class="dot dot-pass"></span><span id="count-pass">0</span> Pass</span>
+          <span class="summary-item"><span class="dot dot-fail"></span><span id="count-fail">0</span> Fail</span>
+          <span class="summary-item"><span class="dot dot-blocked"></span><span id="count-blocked">0</span> Blocked</span>
+          <span class="summary-item"><span class="dot dot-not-tested"></span><span id="count-not-tested">0</span> Not Tested</span>
+          <span class="summary-item total"><span id="count-total">0</span> Total</span>
+        </div>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+          <table class="tc-table" id="tc-table">
+            <thead>
+              <tr>
+                <th class="col-id">TC ID</th>
+                <th class="col-title">Title</th>
+                <th class="col-priority">Priority</th>
+                <th class="col-type">Type</th>
+                <th class="col-role">Role</th>
+                <th class="col-steps">Steps</th>
+                <th class="col-expected">Expected Result</th>
+                <th class="col-actual">Actual Result</th>
+                <th class="col-status">Status</th>
+                <th class="col-bug">Bug Report</th>
+                <th class="col-notes">Notes</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="tc-tbody"></tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- New Sheet Modal -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal">
+      <h2>New Test Sheet</h2>
+      <div class="form-group">
+        <label>Project Name</label>
+        <input type="text" id="input-project" placeholder="e.g. My App" />
+      </div>
+      <div class="form-group">
+        <label>Feature Name</label>
+        <input type="text" id="input-feature" placeholder="e.g. Login Feature" />
+      </div>
+      <div class="form-group">
+        <label>Prepared By</label>
+        <input type="text" id="input-prepared-by" placeholder="Your name" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="btn-modal-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-modal-create">Create Sheet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

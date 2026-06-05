@@ -4,6 +4,9 @@
 # Dependencies
 node_modules/
 
+# Portal test case data (optional — commit if you want to version test cases)
+# data/*.json
+
 # Test reports and artifacts
 reports/html/
 reports/artifacts/
