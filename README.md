@@ -22,10 +22,14 @@ This is where you start. No installation, no terminal, no code.
 **Step 1 — Read the process guide**
 Open [MANUAL-TESTING-GUIDE.md](MANUAL-TESTING-GUIDE.md) — it walks you through everything.
 
-**Step 2 — Prepare your test cases (before dev is done)**
+**Step 2 — Add the PRD**
+- Drop the PRD file (PDF, Word, MD, etc.) into the [`docs/`](docs/) folder
+- The `docs/` folder is gitignored — files stay local and are never committed
+
+**Step 3 — Prepare your test cases (before dev is done)**
 - Open [CHECKLIST.md](CHECKLIST.md) → complete the Manual Testing section
 - Copy [test-cases/TEMPLATE.md](test-cases/TEMPLATE.md) → rename to your feature
-- Fill in test cases from the PRD
+- Fill in test cases from the PRD in `docs/`
 - See [test-cases/example/login-feature.md](test-cases/example/login-feature.md) as a reference
 
 **Step 3 — Execute tests (when dev is ready)**

@@ -1,0 +1,144 @@
+{
+  "project": "CE Express Auto Tracker",
+  "feature": "Manual Tracking & Rate Limiting",
+  "preparedBy": "",
+  "date": "2026-06-05",
+  "testCases": [
+    {
+      "id": "TC-TRACK-001",
+      "title": "Send valid tracking code → receive full status reply",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Real CE Express tracking code available. Bot state is clean.",
+      "steps": [
+        "Open Telegram and start a chat with the bot",
+        "Send a valid CE Express tracking code as plain text (e.g. CEX123456789)"
+      ],
+      "expectedResult": "Bot replies with: shipment status label, full event history with timestamps, package weight, masked destination address. No error message shown.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Note the exact response format for future regression checks."
+    },
+    {
+      "id": "TC-TRACK-002",
+      "title": "Send invalid tracking code → error message shown",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Open Telegram and start a chat with the bot",
+        "Send a fake tracking code: INVALID000000"
+      ],
+      "expectedResult": "Bot replies with a user-friendly error message indicating the code was not found. Bot does NOT crash or go silent.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Message should be human-readable, not a raw API error."
+    },
+    {
+      "id": "TC-TRACK-003",
+      "title": "Out for Delivery status includes courier name and phone",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A tracking code with status Out for Delivery (code 40) is available.",
+      "steps": [
+        "Send the tracking code with status 40 to the bot"
+      ],
+      "expectedResult": "Reply includes courier name and courier phone number in addition to standard tracking info.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD 6.1 — courier info only shown for status 40."
+    },
+    {
+      "id": "TC-TRACK-004",
+      "title": "Destination address is masked in reply",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Any valid tracking code with a destination address.",
+      "steps": [
+        "Send a valid tracking code to the bot",
+        "Inspect the destination address in the reply"
+      ],
+      "expectedResult": "Address is partially masked — shows city/province but not full street address.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "PRD section 11 — privacy requirement."
+    },
+    {
+      "id": "TC-TRACK-005",
+      "title": "Re-check same code within 5 min → rate limited",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A valid tracking code that was just checked (within last 5 minutes).",
+      "steps": [
+        "Send a valid tracking code to the bot",
+        "Wait less than 5 minutes",
+        "Send the same tracking code again"
+      ],
+      "expectedResult": "Bot replies with a rate limit message. Does NOT re-fetch. Indicates when the user can check again.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "MIN_CHECK_INTERVAL default is 300 seconds (5 min)."
+    },
+    {
+      "id": "TC-TRACK-006",
+      "title": "Re-check same code after 5 min → succeeds",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A valid tracking code that was checked more than 5 minutes ago.",
+      "steps": [
+        "Send a valid tracking code",
+        "Wait at least 5 minutes",
+        "Send the same code again"
+      ],
+      "expectedResult": "Bot fetches and returns fresh tracking data. No rate limit message.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-TRACK-007",
+      "title": "Adding 10 tracking codes all succeed",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Clean state — no existing tracked codes. 10 different valid codes ready.",
+      "steps": [
+        "Send 10 different tracking codes one by one",
+        "After each, confirm the bot replies normally"
+      ],
+      "expectedResult": "All 10 codes accepted. Bot replies with tracking info for each. No errors.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "MAX_CODES_PER_USER default is 10."
+    },
+    {
+      "id": "TC-TRACK-008",
+      "title": "Adding 11th tracking code is rejected",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User already has 10 tracked codes (run TC-TRACK-007 first).",
+      "steps": [
+        "Send an 11th new tracking code to the bot"
+      ],
+      "expectedResult": "Bot replies with error explaining the maximum limit is reached. 11th code is NOT added. Existing 10 codes unaffected.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    }
+  ]
+}

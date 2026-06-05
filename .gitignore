@@ -1,20 +1,70 @@
-# Environment — never commit
+# ============================================================
+# Environment
+# ============================================================
 .env
+.env.local
+.env.*.local
 
+# ============================================================
 # Dependencies
+# ============================================================
 node_modules/
 
-# Portal test case data (optional — commit if you want to version test cases)
-# data/*.json
+# ============================================================
+# Playwright
+# ============================================================
+# Cache and browser binaries
+.playwright/
+playwright-report/
 
-# Test reports and artifacts
+# Test output
 reports/html/
 reports/artifacts/
 reports/results.json
+test-results/
 
-# Playwright cache
-.playwright/
+# ============================================================
+# Docs — PRDs and specs are sensitive, never commit
+# ============================================================
+docs/*
+!docs/.gitkeep
 
+# ============================================================
+# Portal data
+# ============================================================
+# JSON test case files are stored here at runtime.
+# Uncomment the line below if you do NOT want to version them.
+# data/*.json
+
+# ============================================================
+# Logs
+# ============================================================
+*.log
+npm-debug.log*
+
+# ============================================================
 # OS files
+# ============================================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================================
+# Editor / IDE
+# ============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================================
+# Misc
+# ============================================================
+*.tmp
+*.temp

@@ -1,0 +1,96 @@
+{
+  "project": "CE Express Auto Tracker",
+  "feature": "Automatic Status Alerts",
+  "preparedBy": "",
+  "date": "2026-06-05",
+  "testCases": [
+    {
+      "id": "TC-ALERT-001",
+      "title": "Status change triggers automatic alert to user",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Tracking code is registered. Dev confirms or simulates a status change in staging.",
+      "steps": [
+        "Add a tracking code to the bot",
+        "Wait for the worker to poll (or ask dev to trigger a status change in staging)",
+        "Observe the Telegram chat"
+      ],
+      "expectedResult": "Bot sends an unsolicited message with: previous status → new status, full updated event history. User does not need to send any message to receive this alert.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Coordinate with dev to trigger a status change in staging. If not possible, test on a real parcel and wait."
+    },
+    {
+      "id": "TC-ALERT-002",
+      "title": "Alert includes courier info when new status is Out for Delivery",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A tracked parcel transitions to status 40 (Out for Delivery) during a worker poll.",
+      "steps": [
+        "Track a code that transitions to Out for Delivery",
+        "Wait for the worker alert"
+      ],
+      "expectedResult": "Alert includes courier name and courier phone number in addition to status change and event history.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD 6.2 — courier info must be in the alert when status is Out for Delivery."
+    },
+    {
+      "id": "TC-ALERT-003",
+      "title": "No status change → no alert sent",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A tracking code is registered. Its status has NOT changed since last poll.",
+      "steps": [
+        "Add a tracking code",
+        "Wait for at least one full worker poll cycle",
+        "Observe the Telegram chat"
+      ],
+      "expectedResult": "No message is sent by the bot. Chat remains silent. No duplicate or unnecessary alerts.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Spamming users with repeated alerts when nothing changes is a critical UX bug."
+    },
+    {
+      "id": "TC-ALERT-004",
+      "title": "Delivered parcel triggers alert with delivered status",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "A tracked parcel reaches status 60 (Delivered).",
+      "steps": [
+        "Track a code for a parcel near delivery",
+        "Wait for the worker to detect the delivered status"
+      ],
+      "expectedResult": "Bot sends an alert clearly indicating the parcel has been delivered.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Confirm with dev whether delivered codes are auto-removed from tracking."
+    },
+    {
+      "id": "TC-ALERT-005",
+      "title": "Multiple users tracking same code each receive their own alert",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Two different Telegram accounts both track the same code. Status changes during a poll.",
+      "steps": [
+        "Account A adds a tracking code",
+        "Account B adds the same tracking code",
+        "Wait for a status change and worker poll"
+      ],
+      "expectedResult": "Both Account A and Account B independently receive the alert. Neither one is skipped.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD architecture — each chat ID is an independent user context."
+    }
+  ]
+}

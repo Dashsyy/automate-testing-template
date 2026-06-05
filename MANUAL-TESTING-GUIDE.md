@@ -30,7 +30,7 @@ Sign off when all critical cases pass
 
 Before writing a single test case:
 
-1. **Read the PRD or spec document** — understand what the feature is supposed to do
+1. **Read the PRD or spec document** — find it in the `docs/` folder of this project
 2. **Identify the features** — break the product into testable areas
    - Example: Login, User Registration, Product Listing, Checkout, Admin Panel
 3. **Identify the user roles** — who uses the app and with what permissions?

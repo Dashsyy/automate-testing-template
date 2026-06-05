@@ -1,0 +1,177 @@
+{
+  "project": "CE Express Auto Tracker",
+  "feature": "Bot Commands",
+  "preparedBy": "",
+  "date": "2026-06-05",
+  "testCases": [
+    {
+      "id": "TC-CMD-001",
+      "title": "/start with no tracked codes → welcome message only",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has zero tracked codes (fresh state or deleted all).",
+      "steps": [
+        "Ensure no codes are tracked (run /delete on all if needed)",
+        "Send /start to the bot"
+      ],
+      "expectedResult": "Bot replies with a welcome message. No inline keyboard buttons shown.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-002",
+      "title": "/start with existing codes → inline keyboard shown",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has at least 2 tracked codes registered.",
+      "steps": [
+        "Add 2 tracking codes by sending them as plain text",
+        "Send /start"
+      ],
+      "expectedResult": "Bot replies with welcome message AND inline keyboard buttons — one per tracked code.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-003",
+      "title": "Tapping /start inline button triggers re-check",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has at least 1 tracked code and /start inline buttons are visible.",
+      "steps": [
+        "Send /start",
+        "Tap one of the inline keyboard buttons"
+      ],
+      "expectedResult": "Bot re-checks that code and sends back the current status. Rate limit still applies if within 5 minutes.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-004",
+      "title": "/list with no tracked codes → empty state message",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has zero tracked codes.",
+      "steps": [
+        "Ensure no codes are tracked",
+        "Send /list"
+      ],
+      "expectedResult": "Bot replies with a message indicating no tracked codes. Does NOT crash or show empty list silently.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-005",
+      "title": "/list shows all tracked codes and last status",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has at least 2 tracked codes with known statuses.",
+      "steps": [
+        "Add 2–3 tracking codes",
+        "Send /list"
+      ],
+      "expectedResult": "Bot replies with all tracked codes and their last known status. List matches exactly what was added.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-006",
+      "title": "/delete with no tracked codes → empty state message",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has zero tracked codes.",
+      "steps": [
+        "Ensure no codes are tracked",
+        "Send /delete"
+      ],
+      "expectedResult": "Bot replies saying there are no codes to delete. No inline buttons shown. Does NOT crash.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-007",
+      "title": "/delete inline button removes the selected code",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has at least 2 tracked codes.",
+      "steps": [
+        "Add 2 tracking codes",
+        "Send /delete",
+        "Tap the button for the first tracking code"
+      ],
+      "expectedResult": "Selected code is removed and confirmation shown. /list afterwards confirms the code is gone. Other codes remain.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-008",
+      "title": "/delete <CODE> removes a specific code directly",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has a tracked code e.g. CEX123456789.",
+      "steps": [
+        "Add tracking code CEX123456789",
+        "Send /delete CEX123456789"
+      ],
+      "expectedResult": "Bot confirms the code was removed. /list confirms code is gone. No inline buttons shown.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-009",
+      "title": "/delete <CODE> for a code not being tracked → error",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Send /delete CODENOTEXIST"
+      ],
+      "expectedResult": "Bot replies with not found or error message. No crash, no silent failure.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-CMD-010",
+      "title": "/help shows all available commands with descriptions",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Send /help"
+      ],
+      "expectedResult": "Bot replies with all commands: /start, /list, /delete, /help — each with a brief description. No commands missing from the PRD table.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Cross-check against PRD section 7 command table."
+    }
+  ]
+}

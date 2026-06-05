@@ -1,0 +1,108 @@
+{
+  "project": "CE Express Auto Tracker",
+  "feature": "Error Handling & Edge Cases",
+  "preparedBy": "",
+  "date": "2026-06-05",
+  "testCases": [
+    {
+      "id": "TC-ERR-001",
+      "title": "Sending empty/spaces message is handled gracefully",
+      "priority": "Medium",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Open the bot chat",
+        "Send a message with only spaces"
+      ],
+      "expectedResult": "Bot either ignores the message or replies helpfully. Does NOT crash or go silent.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD — any text is treated as a tracking code attempt."
+    },
+    {
+      "id": "TC-ERR-002",
+      "title": "Sending a very long string is handled gracefully",
+      "priority": "Low",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Send a message with 500+ random characters to the bot"
+      ],
+      "expectedResult": "Bot replies with an error or not found message. Does NOT crash. Long string is NOT added as a tracked code.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-ERR-003",
+      "title": "CE Express API unavailable → user-friendly error shown",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "Dev team can simulate API outage in staging (e.g. block the CE Express endpoint).",
+      "steps": [
+        "Ask dev to simulate CE Express API being unavailable",
+        "Send a tracking code to the bot"
+      ],
+      "expectedResult": "Bot replies with a user-friendly error (e.g. 'Unable to fetch tracking info, please try again later.'). No raw error, no stack trace, no silence.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD section 12 — error handling returns user-friendly messages when API is down."
+    },
+    {
+      "id": "TC-ERR-004",
+      "title": "Wrong command format is handled gracefully",
+      "priority": "Low",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Send /delete with extra arguments: /delete code1 code2 code3"
+      ],
+      "expectedResult": "Bot handles gracefully — processes first code or replies with usage instructions. Does NOT crash.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    },
+    {
+      "id": "TC-ERR-005",
+      "title": "State is preserved after bot restart",
+      "priority": "High",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "User has at least 2 tracked codes. Dev restarts the bot service.",
+      "steps": [
+        "Add 2 tracking codes and confirm with /list",
+        "Ask dev to restart the bot service",
+        "After restart, send /list"
+      ],
+      "expectedResult": "All previously tracked codes are still listed. State is preserved across restarts.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": "Per PRD architecture — state persisted in /data/state.json via Docker volume. Critical for production."
+    },
+    {
+      "id": "TC-ERR-006",
+      "title": "Unknown command is handled gracefully",
+      "priority": "Low",
+      "type": "Manual",
+      "role": "User",
+      "preconditions": "None",
+      "steps": [
+        "Send an unknown command: /unknown"
+      ],
+      "expectedResult": "Bot either ignores it or suggests /help. Does NOT crash or show error trace.",
+      "actualResult": "",
+      "status": "Not Tested",
+      "bugReport": "",
+      "notes": ""
+    }
+  ]
+}
