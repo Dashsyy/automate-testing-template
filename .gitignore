@@ -1,0 +1,17 @@
+# Environment — never commit
+.env
+
+# Dependencies
+node_modules/
+
+# Test reports and artifacts
+reports/html/
+reports/artifacts/
+reports/results.json
+
+# Playwright cache
+.playwright/
+
+# OS files
+.DS_Store
+Thumbs.db
